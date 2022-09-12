@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: url-checker
+  webflux:
+    base-path: /${spring.application.name}
+  main:
+    banner-mode: "OFF"
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  quartz:
+    job-store-type: jdbc
+    properties.org.quartz.threadPool.threadCount: 50
+
+async-executor:
+  corePoolSize: 4
+  maxPoolSize: 8
+  keepAliveSeconds: 60
+  queueCapacity: 1000
+
+jobs:
+  url-check:
+    job-trigger-name: UrlCheckerJobTrigger
+    job-name: UrlCheckerJob
+    repeat-interval-sec: 20
+
