@@ -6,7 +6,3 @@ CREATE TABLE IF NOT EXISTS check_results (
     check_time          TIMESTAMP NOT NULL,
     url                 VARCHAR(1000) NOT NULL
 );
-
-ALTER TABLE check_results
-    ADD CONSTRAINT CHECK_RESULTS_URL_ID_FK
-    FOREIGN KEY (url) REFERENCES urls;
