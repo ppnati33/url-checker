@@ -25,7 +25,7 @@ class WebClientFacade {
                 }
         } catch (e: Exception) {
 
-            logger.error("Error while trying to connect to $url")
+            logger.info("Error while trying to connect to $url")
 
             CheckResultType.NOT_OK
         }

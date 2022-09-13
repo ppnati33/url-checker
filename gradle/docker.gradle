@@ -1,0 +1,12 @@
+docker {
+    name "${project.name}:${version}"
+    files "build/libs/${bootJar.archiveFileName.get()}"
+    buildArgs([JAR_FILE: bootJar.archiveFileName.get()])
+}
+
+dockerRun {
+    name "${project.name}"
+    image "${project.name}:${version}"
+    ports '8080:8080'
+    clean true
+}

@@ -1,5 +1,7 @@
 package com.urlchecker.controller
 
+import com.urlchecker.controller.dto.SuccessfulResponse
+import com.urlchecker.util.emptyResponse
 import com.urlchecker.service.UrlCheckJobRescheduleHandler
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,9 +17,9 @@ class ConfigurationController(
 
     @PostMapping("/repeatInterval/{repeatIntervalSec}")
     @Operation(summary = "Update url check repeat interval in seconds")
-    fun changeCheckRepeatInterval(@PathVariable repeatIntervalSec: Int): String {
+    fun changeCheckRepeatInterval(@PathVariable repeatIntervalSec: Int): SuccessfulResponse<Unit> {
         urlCheckJobRescheduleHandler.reschedule(repeatIntervalSec)
-        return "OK"
+        return emptyResponse()
     }
 
 }

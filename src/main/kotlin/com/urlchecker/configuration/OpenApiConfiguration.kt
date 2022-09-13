@@ -17,7 +17,7 @@ class OpenApiConfiguration(
         OpenAPI().info(
             Info()
                 .title(UrlCheckerApplication::class.java.simpleName)
-                .description("\"${get("commit.id.abbrev")} | ${get("commit.message.full")}\"")
+                .description("Build info: commit: ${get("commit.id.abbrev")} | message: ${get("commit.message.full")}")
                 .version(get("closest.tag.name"))
         )
     }

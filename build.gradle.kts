@@ -7,11 +7,15 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
+	id("com.palantir.docker") version "0.31.0"
+	id("com.palantir.docker-run") version "0.31.0"
 }
 
 group = "com"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+apply(from = "$rootDir/gradle/docker.gradle")
 
 repositories {
 	mavenCentral()
@@ -34,9 +38,19 @@ dependencies {
 
 	runtimeOnly("com.h2database:h2")
 
+	// Open API
 	implementation("org.springdoc:springdoc-openapi-webflux-ui:$springDocVersion")
+	implementation("org.springdoc:springdoc-openapi-kotlin:$springDocVersion")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	// Tests
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "junit")
+		exclude(module = "mockito-core")
+	}
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("io.mockk:mockk:1.12.7")
+	testImplementation("com.ninja-squad:springmockk:3.1.1")
 	testImplementation("io.projectreactor:reactor-test")
 }
 
